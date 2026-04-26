@@ -1,3 +1,15 @@
+import streamlit as st
+import PyPDF2
+import google.generativeai as genai
+
+# Setup page
+st.set_page_config(page_title="GrantGuard AI", page_icon="🛡️")
+
+st.title("🛡️ GrantGuard AI")
+st.subheader("Professional Grant-Readiness Auditor")
+st.write("Upload your business plan or grant draft below. Our AI will audit your document for major small business grants, including the $10,000 Skip Grant.")
+
+# Sidebar for API Key
 api_key = st.sidebar.text_input("Enter Gemini API Key", type="password")
 
 uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
