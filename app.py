@@ -16,7 +16,7 @@ uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
 
 if uploaded_file is not None and api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+  model = genai.GenerativeModel('gemini-pro')
     
     # Read PDF
     pdf_reader = PyPDF2.PdfReader(uploaded_file)
