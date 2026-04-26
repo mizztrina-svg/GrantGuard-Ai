@@ -1,3 +1,4 @@
+Python
 import streamlit as st
 import PyPDF2
 import google.generativeai as genai
@@ -26,13 +27,10 @@ if uploaded_file is not None and api_key:
     
     if st.button("Run Audit"):
         with st.spinner("Analyzing for grant-readiness..."):
-            prompt = f"""
-            You are a Professional Grant Consultant. Analyze the following business text for 'Grant-Readiness.' 
-            
-            Evaluate based on:
-            1. Clarity of Mission
-            2. Community Impact
-            3. Financial Viability
-            4. Specific alignment with major grants like the $10,000 Skip Grant.
-            
-            Provide a 'Grant-Readiness Score' out of 100 and 3 specific tips to improve the application.
+            prompt = f"Analyze this business text for grant-readiness. Provide a score out of 100 and 3 tips for improvement. Text: {text}"
+            response = model.generate_content(prompt)
+            st.markdown("### **Audit Results**")
+            st.write(response.text)
+else:
+    if not api_key:
+        st.info("Please enter your Gemini API Key in the sidebar to begin.")
