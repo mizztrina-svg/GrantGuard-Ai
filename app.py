@@ -18,8 +18,8 @@ if uploaded_file is not None and api_key:
     try:
         genai.configure(api_key=api_key)
         
-        # Try the most common model name
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # This is the "Master Key" model name that works for most accounts
+        model = genai.GenerativeModel('gemini-pro')
         
         # Read PDF
         pdf_reader = PyPDF2.PdfReader(uploaded_file)
@@ -34,12 +34,13 @@ if uploaded_file is not None and api_key:
                 st.error("Could not read text from this PDF. Please make sure it's not a scanned image.")
             else:
                 with st.spinner("Analyzing Jacob's Party Box Rentals plan..."):
+                    # The prompt tells the AI exactly what to look for
                     prompt = f"Analyze this business text for grant-readiness. Provide a score out of 100 and 3 tips for improvement. Text: {text}"
                     response = model.generate_content(prompt)
                     st.markdown("### **Audit Results**")
                     st.write(response.text)
     except Exception as e:
-        st.error(f"Connection Error: {e}. Please ensure your API key is correct.")
+        st.error(f"Connection Error: {e}. Please ensure your API key is correct and active.")
 else:
     if not api_key:
         st.info("Please enter your Gemini API Key in the sidebar to begin.")
